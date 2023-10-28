@@ -2,17 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCastById } from 'components/api/api';
 import './cast.css';
+import Loader from 'components/Loader/Loader';
 
 const Cast = () => {
   const { id } = useParams();
   const [item, setItem] = useState([]);
+  const [isLoading, setIsloading] = useState(false);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     const fetchCast = async () => {
       try {
+        setIsloading(true);
         const result = await getCastById(id);
         setItem(result.cast);
-      } catch (error) {
-        console.log(error);
+      } catch (e) {
+        setError(true);
+      } finally {
+        setIsloading(false);
       }
     };
     fetchCast();
@@ -32,7 +39,13 @@ const Cast = () => {
     );
   });
 
-  return <ul>{list}</ul>;
+  return (
+    <>
+      {isLoading && <Loader />}
+      {error && <p>Something went wrong..</p>}
+      {item.length > 0 && <ul>{list}</ul>}
+    </>
+  );
 };
 
 export default Cast;

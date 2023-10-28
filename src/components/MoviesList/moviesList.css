@@ -4,3 +4,7 @@
   padding: 20px;
   padding-left: 50px;
 }
+
+.item:hover a {
+  color: red;
+}
