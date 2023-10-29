@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getCastById } from 'components/api/api';
+import { getCastById } from 'api/api';
 import './cast.css';
 import Loader from 'components/Loader/Loader';
+
+const defaultImg =
+  'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
 
 const Cast = () => {
   const { id } = useParams();
@@ -30,7 +33,11 @@ const Cast = () => {
       <li key={id}>
         <div className="profile_img">
           <img
-            src={`https://image.tmdb.org/t/p/w500${profile_path}`}
+            src={
+              profile_path
+                ? `https://image.tmdb.org/t/p/w500${profile_path}`
+                : defaultImg
+            }
             alt={name}
           />
         </div>

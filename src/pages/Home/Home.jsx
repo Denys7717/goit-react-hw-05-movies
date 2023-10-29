@@ -1,4 +1,4 @@
-import { getPopularList } from 'components/api/api';
+import { getPopularList } from 'api/api';
 import { useEffect, useState } from 'react';
 import MoviesList from 'components/MoviesList/MoviesList';
 import Loader from 'components/Loader/Loader';
@@ -28,7 +28,7 @@ const Home = () => {
       <h2>Trending today</h2>
       {isLoading && <Loader />}
       {error && <p>Something went wrong..</p>}
-      {list.length > 0 && <MoviesList list={list} movie={false} />}
+      {list.length > 0 && <MoviesList list={list} />}
     </>
   );
 };

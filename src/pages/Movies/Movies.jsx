@@ -1,22 +1,25 @@
 import { useEffect, useState } from 'react';
-import { getMovieByName } from 'components/api/api';
+import { getMovieByName } from 'api/api';
 import SearchForm from 'components/SearchForm/SearchForm';
 import './movies.css';
 import MoviesList from 'components/MoviesList/MoviesList';
 import Loader from 'components/Loader/Loader';
+import { useSearchParams } from 'react-router-dom';
 
 const Movies = () => {
-  const [name, setName] = useState('');
+  // const [name, setName] = useState('');
   const [list, setList] = useState([]);
   const [isLoading, setIsloading] = useState(false);
   const [error, setError] = useState(null);
   const [notFound, setNotFound] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('search');
 
   useEffect(() => {
     const fetchFilmByName = async () => {
       try {
         setIsloading(true);
-        const result = await getMovieByName(name);
+        const result = await getMovieByName(query);
         if (result.results.length === 0) {
           setNotFound(true);
         } else {
@@ -29,11 +32,11 @@ const Movies = () => {
         setIsloading(false);
       }
     };
-    if (name) fetchFilmByName();
-  }, [name]);
+    if (query) fetchFilmByName();
+  }, [query]);
 
   function getMovie(value) {
-    setName(value);
+    value ? setSearchParams({ search: value }) : setSearchParams({});
   }
 
   return (
@@ -42,7 +45,7 @@ const Movies = () => {
       {isLoading && <Loader />}
       {error && <p>Something went wrong..</p>}
       {notFound && <h2>Nothing found...</h2>}
-      {list.length > 0 && <MoviesList list={list} movie />}
+      {list.length > 0 && <MoviesList list={list} />}
     </div>
   );
 };

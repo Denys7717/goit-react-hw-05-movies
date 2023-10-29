@@ -1,9 +1,12 @@
 import MovieInfo from 'components/MovieInfo/MovieInfo';
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { getMovieById } from 'components/api/api';
+import { getMovieById } from 'api/api';
 import './movieDetails.css';
 import Loader from 'components/Loader/Loader';
+
+const defaultImg =
+  'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
 
 const MovieDetails = () => {
   const { id } = useParams();
@@ -11,8 +14,6 @@ const MovieDetails = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const locationForBack = useRef(location.state?.from ?? '/');
-  const defaultImg =
-    'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
   const [isLoading, setIsloading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -66,7 +67,7 @@ const MovieDetails = () => {
             </div>
           </div>
         </div>
-        <MovieInfo id={id} />
+        <MovieInfo />
       </>
     </>
   );

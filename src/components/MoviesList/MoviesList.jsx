@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import './moviesList.css';
 
-const MoviesList = ({ list, movie }) => {
+const MoviesList = ({ list }) => {
   const location = useLocation();
 
   return (
@@ -10,7 +10,7 @@ const MoviesList = ({ list, movie }) => {
         return (
           <li key={id} className="item">
             <Link
-              to={movie ? `${id}` : `movies/${id}`}
+              to={`/movies/${id}`}
               state={{ from: location }}
               className="item"
             >

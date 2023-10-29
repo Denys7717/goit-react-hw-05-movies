@@ -1,4 +1,4 @@
-import { getReviewsById } from 'components/api/api';
+import { getReviewsById } from 'api/api';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './reviews.css';

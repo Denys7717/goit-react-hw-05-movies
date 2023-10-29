@@ -1,24 +1,21 @@
-import { useSearchParams } from 'react-router-dom';
+import { useState } from 'react';
 import './searchForm.css';
 
 const SearchForm = ({ getMovie }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const query = searchParams.get('search');
+  const [name, setName] = useState('');
 
   const handleChange = ({ target: { value } }) => {
-    value ? setSearchParams({ search: value }) : setSearchParams({});
+    setName(value);
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    const data = searchParams.get('search');
-    getMovie(data);
+    getMovie(name);
   };
 
   return (
     <form onSubmit={handleSubmit} className="search_form">
-      <input type="text" onChange={handleChange} value={query || ''} />
+      <input type="text" onChange={handleChange} value={name || ''} />
       <button type="submit">search</button>
     </form>
   );
